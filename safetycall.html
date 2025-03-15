@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Calls</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #FFF0E6; 
+            color: #5D4037;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            background: #FFAB91; 
+            color: #5D4037; 
+            border-radius: 10px;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            margin-bottom: 10px;
+        }
+        
+        .instructions {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 5px solid #FFCCBC; 
+        }
+        
+        .call-selector {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 5px solid #FFCCBC; 
+        }
+        
+        .call-type {
+            margin-bottom: 15px;
+        }
+        
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #FFE0B2; 
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #FFF5EE; 
+            color: #5D4037; 
+        }
+        
+        button {
+            background: #FF8A65; 
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background: #FF5722; 
+        }
+        
+        .timer-display {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: none;
+            border-left: 5px solid #FFCCBC; 
+        }
+        
+        .call-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .call-controls button {
+            width: 48%;
+        }
+        
+        .calling-screen {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 5px solid #FFCCBC; 
+        }
+        
+        .caller-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            background: #FFE0B2; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #5D4037; 
+            border: 4px solid #FFCCBC; 
+        }
+        
+        .caller-name {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #FF8A65;
+        }
+        
+        .call-status {
+            color: #8D6E63;
+            margin-bottom: 20px;
+        }
+        
+        .call-actions {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        
+        .call-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .accept {
+            background: #66BB6A; 
+        }
+        
+        .decline {
+            background: #FF5722; 
+        }
+        
+        .end-call {
+            background: #FF5722; 
+            margin: 20px auto 0;
+            display: none;
+        }
+        
+        #countdown, #callTimer {
+            color: #FF8A65; 
+            font-weight: bold;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Quick Safety Fake Calls</h1>
+            <p>Set up a fake call to get yourself out of any uncomfortable situation</p>
+        </header>
+        
+        <div class="instructions">
+            <h2>How it works:</h2>
+            <ol>
+                <li>Select a call type and set a timer (optional)</li>
+                <li>Press "Set Up Call" to begin</li>
+                <li>When the timer ends or you press "Call Now", your phone will ring</li>
+                <li>Answer the call to play the pre-recorded audio</li>
+            </ol>
+        </div>
+        
+        <div class="call-selector" id="callSetup">
+            <div class="call-type">
+                <label for="caller">Who's calling you?</label>
+                <select id="caller">
+                    <option value="boss">Father (Urgent Work Matter)</option>
+                    <option value="mom">Mom (has your live location)</option>
+                    <option value="delivery">Roommate</option>
+                </select>
+            </div>
+            
+            <div class="call-type">
+                <label for="timer">When should the call happen?</label>
+                <select id="timer">
+                    <option value="0">Call Now</option>
+                    <option value="30">In 30 seconds</option>
+                    <option value="60">In 1 minute</option>
+                    <option value="120">In 2 minutes</option>
+                    <option value="300">In 5 minutes</option>
+                </select>
+            </div>
+            
+            <button id="setupCall">Set Up Call</button>
+        </div>
+        
+        <div class="timer-display" id="timerDisplay">
+            <h2>Call scheduled in:</h2>
+            <div id="countdown">00:00</div>
+            <div class="call-controls">
+                <button id="callNow">Call Now</button>
+                <button id="cancelCall">Cancel</button>
+            </div>
+        </div>
+        
+        <div class="calling-screen" id="incomingCall">
+            <div class="caller-image" id="callerIcon">👤</div>
+            <div class="caller-name" id="callerName">Unknown Caller</div>
+            <div class="call-status">Incoming call...</div>
+            <div class="call-actions">
+                <div class="call-btn decline" id="declineBtn">✗</div>
+                <div class="call-btn accept" id="acceptBtn">✓</div>
+            </div>
+        </div>
+        
+        <div class="calling-screen" id="activeCall">
+            <div class="caller-image" id="activeCallerIcon">👤</div>
+            <div class="caller-name" id="activeCallerName">Unknown Caller</div>
+            <div class="call-status">Call in progress <span id="callTimer">00:00</span></div>
+            <audio id="callAudio" controls style="display: none;"></audio>
+            <button class="end-call" id="endCallBtn">End Call</button>
+        </div>
+    </div>
+
+    <script>
+       
+        const audioFiles = {
+            delivery: {
+                name: "roommate",
+                
+                audio: "" 
+            },
+            mom: {
+                name: "Mom",
+                icon: "👩",
+                audio: ""
+            },
+            boss: {
+                name: "father",
+                icon: "👨‍💼",
+                audio: "https://dl.sndup.net/fnmt/doctor-call.mp3"
+            }
+        };
+
+       
+        const callSetup = document.getElementById('callSetup');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const incomingCall = document.getElementById('incomingCall');
+        const activeCall = document.getElementById('activeCall');
+        const setupCallBtn = document.getElementById('setupCall');
+        const callNowBtn = document.getElementById('callNow');
+        const cancelCallBtn = document.getElementById('cancelCall');
+        const acceptBtn = document.getElementById('acceptBtn');
+        const declineBtn = document.getElementById('declineBtn');
+        const endCallBtn = document.getElementById('endCallBtn');
+        const countdown = document.getElementById('countdown');
+        const callTimer = document.getElementById('callTimer');
+        const callAudio = document.getElementById('callAudio');
+
+        // Variables
+        let timerInterval;
+        let callTimerInterval;
+        let remainingSeconds = 0;
+        let callDuration = 0;
+        let selectedCaller;
+        let ringtone;
+
+       
+        function createRingtone() {
+            ringtone = new Audio();
+            ringtone.src = ""; 
+            ringtone.loop = true;
+        }
+
+      
+        createRingtone();
+
+      
+        function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+        
+        function updateTimer() {
+            remainingSeconds--;
+            countdown.textContent = formatTime(remainingSeconds);
+            
+            if (remainingSeconds <= 0) {
+                clearInterval(timerInterval);
+                showIncomingCall();
+            }
+        }
+
+        
+        function updateCallTimer() {
+            callDuration++;
+            callTimer.textContent = formatTime(callDuration);
+        }
+
+       
+        function showIncomingCall() {
+            timerDisplay.style.display = 'none';
+            callSetup.style.display = 'none';
+            incomingCall.style.display = 'block';
+            
+            
+            const callerType = document.getElementById('caller').value;
+            selectedCaller = audioFiles[callerType];
+            
+            
+            document.getElementById('callerName').textContent = selectedCaller.name;
+            document.getElementById('callerIcon').textContent = selectedCaller.icon;
+            
+            
+            ringtone.play();
+        }
+
+        function showActiveCall() {
+            incomingCall.style.display = 'none';
+            activeCall.style.display = 'block';
+            
+            
+            document.getElementById('activeCallerName').textContent = selectedCaller.name;
+            document.getElementById('activeCallerIcon').textContent = selectedCaller.icon;
+            
+            
+            ringtone.pause();
+            ringtone.currentTime = 0;
+            
+            
+            callAudio.src = selectedCaller.audio;
+            callAudio.play();
+            
+            
+            endCallBtn.style.display = 'block';
+            
+            
+            callDuration = 0;
+            callTimerInterval = setInterval(updateCallTimer, 1000);
+        }
+
+       
+        function resetApp() {
+           
+            clearInterval(timerInterval);
+            clearInterval(callTimerInterval);
+            
+           
+            callSetup.style.display = 'block';
+            timerDisplay.style.display = 'none';
+            incomingCall.style.display = 'none';
+            activeCall.style.display = 'none';
+            
+            
+            ringtone.pause();
+            ringtone.currentTime = 0;
+            callAudio.pause();
+            callAudio.currentTime = 0;
+        }
+
+        
+        setupCallBtn.addEventListener('click', () => {
+            const seconds = parseInt(document.getElementById('timer').value);
+            
+            if (seconds === 0) {
+               
+                showIncomingCall();
+            } else {
+               
+                remainingSeconds = seconds;
+                countdown.textContent = formatTime(remainingSeconds);
+                timerDisplay.style.display = 'block';
+                callSetup.style.display = 'none';
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+        });
+
+        callNowBtn.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            showIncomingCall();
+        });
+
+        cancelCallBtn.addEventListener('click', resetApp);
+
+        acceptBtn.addEventListener('click', showActiveCall);
+
+        declineBtn.addEventListener('click', resetApp);
+
+        endCallBtn.addEventListener('click', () => {
+           
+            clearInterval(callTimerInterval);
+            
+          
+            callAudio.pause();
+            callAudio.currentTime = 0;
+            
+            
+            resetApp();
+        });
+    </script>
+</body>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Defense Learning Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6ea;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            scroll-behavior: smooth;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #da919e;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tutorials {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .tutorial {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .tutorial h3{
+            color: #6b1525;
+        }
+        iframe {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .safety-button {
+            background-color: #ff4d6d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+
+        }
+        .safety-button:hover {
+            background-color: #ff1f4b;
+            transform: scale(1.05);
+        }
+        .safety-button:active {
+            background-color: #d60036;
+            transform: scale(0.95);
+        }
+        .safety-section {
+            background-color: #ffccd5;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            text-align: left;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            
+        }
+        .safety-section.show {
+            opacity: 1;
+            max-height: 500px;
+        }
+        .safety-section ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+        .safety-section h2{
+            text-align: center;
+        }
+    </style>
+    <script>
+        function toggleSafetyTips() {
+            var safetySection = document.getElementById("safety-section");
+            safetySection.classList.toggle("show");
+        }
+    </script>
+</head>
+<body>
+    <div class="header">Self-Defense Learning Hub</div>
+    <div class="container">
+        <h2>Quick Tutorials</h2>
+        <div class="tutorials">
+            <div class="tutorial">
+                <h3>Basic Defense Moves</h3>
+                <iframe src="https://www.youtube.com/embed/M4_8PoRQP8w" allowfullscreen></iframe>
+
+            </div>
+            <div class="tutorial">
+                <h3>Escape Techniques</h3>
+                <iframe src="https://www.youtube.com/embed/jAh0cU1J5zk" allowfullscreen></iframe>
+            </div>
+            <div class="tutorial">
+                <h3>Striking Techniques</h3>
+                <iframe src="https://www.youtube.com/embed/pndPbpHLpos" allowfullscreen></iframe>
+            </div>
+        </div>
+        <button class="safety-button" onclick="toggleSafetyTips()">Show Safety Tips</button>
+        <div id="safety-section" class="safety-section">
+            <h2>Safety Tips & Guidelines</h2>
+            <ul>
+                <li>Always be aware of your surroundings and stay alert.</li>
+                <li>Whenever a girl gets into a cab, she should send a picture of the cab's number plate and the driver's name to her parents or someone close.</li>
+                <li>Trust your instincts and avoid dangerous situations.</li>
+                <li>Use your voice confidently to deter attackers.</li>
+                <li>Practice self-defense techniques regularly to stay prepared.</li>
+                <li>Carry personal safety items like a whistle or pepper spray if legal in your area.</li>
+                <li>Try to stay in well-lit and populated areas whenever possible.</li>
+                <li>If attacked, aim for the vulnerable points like the eyes, nose, and groin.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
